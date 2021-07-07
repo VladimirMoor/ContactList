@@ -20,7 +20,16 @@ struct ContentView: View {
         NavigationView {
             
             List(myList.list) { contact in
-                Text(contact.fullName)
+                HStack {
+                    
+                ContactImage(imageID: contact.id)
+                    
+                VStack(alignment: .leading, spacing: 5) {
+                Text("Full Name: \(contact.fullName)")
+                Text("Email: \(contact.email)")
+                Text("Interest: \(contact.interest)")
+                }
+            }
             }
             .navigationTitle("Contacts")
             .toolbar {
@@ -37,8 +46,9 @@ struct ContentView: View {
             }
       }
         .sheet(isPresented: $showCreate) {
-            Create(image: inputImage)
+            Create(image: inputImage, myList: myList)
         }
+        .onAppear(perform: loadList)
     }
     
     func showCreateView() {
@@ -47,32 +57,17 @@ struct ContentView: View {
         }
         
     }
-
-//    func loadImage(withId: UUID) -> UIImage? {
-//        let url = Api.getDocumentDirectory().appendingPathComponent(withId.uuidString)
-//        do {
-//            print("trying to load image with ID --- \(withId.uuidString)")
-//            let data = try Data(contentsOf: url)
-//            return UIImage(data: data) ?? UIImage(systemName: "person")!
-//        } catch {
-//            print(error.localizedDescription)
-//        }
-//
-//        return nil
-//    }
-}
-
-
-class Api {
-    static func getDocumentDirectory() -> URL {
-        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-        return paths[0]
+    
+    func loadList() {
+        let filename = Helper.getDocumentDirectory().appendingPathComponent("SavedList")
+        
+        do {
+            let data = try Data(contentsOf: filename)
+            myList.list = try JSONDecoder().decode([Contact].self, from: data)
+            
+        } catch {
+            print("Some error produced while loading listFile to myList:")
+            print(error.localizedDescription)
+        }
     }
 }
-
-
-//struct ContentView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        ContentView()
-//    }
-//}

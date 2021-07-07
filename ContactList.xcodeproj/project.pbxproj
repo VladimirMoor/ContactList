@@ -14,6 +14,7 @@
 		E723002D269345A900040EAF /* Contact.swift in Sources */ = {isa = PBXBuildFile; fileRef = E723002C269345A900040EAF /* Contact.swift */; };
 		E7230030269350CB00040EAF /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = E723002F269350CB00040EAF /* ImagePicker.swift */; };
 		E72300342693896200040EAF /* Create.swift in Sources */ = {isa = PBXBuildFile; fileRef = E72300332693896200040EAF /* Create.swift */; };
+		E732AF2A26960D2F001B43F0 /* ContactImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E732AF2926960D2F001B43F0 /* ContactImage.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		E723002C269345A900040EAF /* Contact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contact.swift; sourceTree = "<group>"; };
 		E723002F269350CB00040EAF /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		E72300332693896200040EAF /* Create.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Create.swift; sourceTree = "<group>"; };
+		E732AF2926960D2F001B43F0 /* ContactImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactImage.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +62,7 @@
 			children = (
 				E723001C26932E4000040EAF /* ContactListApp.swift */,
 				E723001E26932E4000040EAF /* ContentView.swift */,
+				E732AF2926960D2F001B43F0 /* ContactImage.swift */,
 				E723002F269350CB00040EAF /* ImagePicker.swift */,
 				E723002C269345A900040EAF /* Contact.swift */,
 				E72300332693896200040EAF /* Create.swift */,
@@ -149,6 +152,7 @@
 			files = (
 				E723002D269345A900040EAF /* Contact.swift in Sources */,
 				E723001F26932E4000040EAF /* ContentView.swift in Sources */,
+				E732AF2A26960D2F001B43F0 /* ContactImage.swift in Sources */,
 				E723001D26932E4000040EAF /* ContactListApp.swift in Sources */,
 				E7230030269350CB00040EAF /* ImagePicker.swift in Sources */,
 				E72300342693896200040EAF /* Create.swift in Sources */,
