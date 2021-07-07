@@ -7,6 +7,12 @@
 
 import Foundation
 
+class ListOfContacts: ObservableObject, Identifiable {
+    @Published var list: [Contact]
+    init() {
+        list = []
+    }
+}
 
 struct Contact: Codable, Identifiable {
     
