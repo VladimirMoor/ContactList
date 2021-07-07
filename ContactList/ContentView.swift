@@ -11,14 +11,14 @@ struct ContentView: View {
     
     @ObservedObject var myList = ListOfContacts()
     @State private var showPicker = false
-    @State private var inputImage: UIImage?
     @State private var showCreate = false
+    @State private var inputImage = UIImage(systemName: "person")!
     @State private var newContact = Contact(fullName: "", email: "", interest: "")
+    @State private var cancelPressed = false
     
     var body: some View {
         NavigationView {
-            VStack {
-                    
+            
             List(myList.list) { contact in
                 Text(contact.fullName)
             }
@@ -32,34 +32,34 @@ struct ContentView: View {
                 })
             }
         }
-            .sheet(isPresented: $showPicker, onDismiss: showCreateView) {
-                ImagePicker(presentPicker: $showPicker, newContact: $newContact)
-         }
-        
-        }
+        .sheet(isPresented: $showPicker, onDismiss: showCreateView) {
+            ImagePicker(presentPicker: $showPicker, image: $inputImage, cancelPressed: $cancelPressed)
+            }
       }
-        .sheet(isPresented: $showCreate, content: {
-            Text(newContact.id.uuidString)
-            
-        })
+        .sheet(isPresented: $showCreate) {
+            Create(image: inputImage)
+        }
     }
     
     func showCreateView() {
+        if !cancelPressed {
         showCreate = true
+        }
         
     }
-    
 
-    func loadImage() {
-        let url = Api.getDocumentDirectory().appendingPathComponent(newContact.id.uuidString)
-        do {
-            let data = try Data(contentsOf: url)
-            self.inputImage = UIImage(data: data)
-
-        } catch {
-            print(error.localizedDescription)
-        }
-    }
+//    func loadImage(withId: UUID) -> UIImage? {
+//        let url = Api.getDocumentDirectory().appendingPathComponent(withId.uuidString)
+//        do {
+//            print("trying to load image with ID --- \(withId.uuidString)")
+//            let data = try Data(contentsOf: url)
+//            return UIImage(data: data) ?? UIImage(systemName: "person")!
+//        } catch {
+//            print(error.localizedDescription)
+//        }
+//
+//        return nil
+//    }
 }
 
 

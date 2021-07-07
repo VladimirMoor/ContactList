@@ -8,16 +8,15 @@
 import SwiftUI
 
 struct Create: View {
-    
-    @ObservedObject var myList: ListOfContacts
-    var image: UIImage?
-    
+    var image: UIImage
     
     var body: some View {
-        if image != nil {
-            Text("Hi image!")
-        } else {
-            Text("Image is nil")
+        VStack {
+            
+            Image(uiImage: image)
+                .resizable()
+                .frame(width: 100, height: 100)
+            Text("Hi")
         }
     }
 }

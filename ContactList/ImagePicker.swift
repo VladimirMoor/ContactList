@@ -11,7 +11,8 @@ import PhotosUI
 struct ImagePicker: UIViewControllerRepresentable {
     
     @Binding var presentPicker: Bool
-    @Binding var newContact: Contact
+    @Binding var image: UIImage
+    @Binding var cancelPressed: Bool
 
     
     func makeUIViewController(context: Context) -> PHPickerViewController {
@@ -39,9 +40,14 @@ struct ImagePicker: UIViewControllerRepresentable {
             
             parent.presentPicker.toggle()
             
+            guard let img = results.first else {
+                
+                self.parent.cancelPressed = true
+                return
+            }
             
+            self.parent.cancelPressed = false
             
-            guard let img = results.first else { return }
             if img.itemProvider.canLoadObject(ofClass: UIImage.self) {
                 img.itemProvider.loadObject(ofClass: UIImage.self) { image, error in
                     guard let image1 = image else {
@@ -49,28 +55,18 @@ struct ImagePicker: UIViewControllerRepresentable {
                         return
                     }
                     
-                    let newImageID = UUID()
-                    let docDirectory = Api.getDocumentDirectory()
-                    let url = docDirectory.appendingPathComponent(newImageID.uuidString)
+                    self.parent.image = image1 as! UIImage
                     
-                    // save image to disk
-                        let imageToSave = image1 as! UIImage
-                        if let jpegData = imageToSave.jpegData(compressionQuality: 0.8) {
-                            try? jpegData.write(to: url, options: [.atomicWrite, .completeFileProtection])
-                            print("Image Saved with ID: \(newImageID)")
-                            
-                            self.parent.newContact.id = newImageID
-                        }
                 }
-            } else {
+                } else {
                 print("Cannot load image")
-            }
-
         }
+    }
+        
+    
     }
     
     func makeCoordinator() -> Coordinator {
         return Coordinator(parent1: self)
     }
-    
 }
