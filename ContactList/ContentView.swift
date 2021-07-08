@@ -20,31 +20,35 @@ struct ContentView: View {
         NavigationView {
             
             List(myList.list) { contact in
-                HStack {
-                    
-                ContactImage(imageID: contact.id)
-                    
-                VStack(alignment: .leading, spacing: 5) {
-                Text("Full Name: \(contact.fullName)")
-                Text("Email: \(contact.email)")
-                Text("Interest: \(contact.interest)")
+                NavigationLink(destination: DetailView(showContact: contact)) {
+                    HStack {
+                        
+                        ContactImage(imageID: contact.id)
+                        
+                        VStack(alignment: .leading, spacing: 5) {
+                            
+                            Text("Full Name: \(contact.fullName)")
+                            Text("Email: \(contact.email)")
+                            Text("Interest: \(contact.interest)")
+                            
+                        }
+                    }
                 }
-            }
             }
             .navigationTitle("Contacts")
             .toolbar {
-            ToolbarItem(placement: .navigationBarTrailing) {
-                Button(action: {
-                    showPicker = true
-                }, label: {
-                    Image(systemName: "plus")
-                })
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button(action: {
+                        showPicker = true
+                    }, label: {
+                        Image(systemName: "plus")
+                    })
+                }
+            }
+            .sheet(isPresented: $showPicker, onDismiss: showCreateView) {
+                ImagePicker(presentPicker: $showPicker, image: $inputImage, cancelPressed: $cancelPressed)
             }
         }
-        .sheet(isPresented: $showPicker, onDismiss: showCreateView) {
-            ImagePicker(presentPicker: $showPicker, image: $inputImage, cancelPressed: $cancelPressed)
-            }
-      }
         .sheet(isPresented: $showCreate) {
             Create(image: inputImage, myList: myList)
         }
@@ -53,7 +57,7 @@ struct ContentView: View {
     
     func showCreateView() {
         if !cancelPressed {
-        showCreate = true
+            showCreate = true
         }
         
     }

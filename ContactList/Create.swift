@@ -39,6 +39,7 @@ struct Create: View {
                         saveImage(with: contact.id)
                         
                         myList.list.append(contact)
+                        myList.list.sort()
                         
                         // saving myList to file:
                         do {
