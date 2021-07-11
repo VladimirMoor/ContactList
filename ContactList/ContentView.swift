@@ -13,7 +13,6 @@ struct ContentView: View {
     @State private var showPicker = false
     @State private var showCreate = false
     @State private var inputImage = UIImage(systemName: "person")!
-    @State private var newContact = Contact(fullName: "", email: "", interest: "")
     @State private var cancelPressed = false
     
     var body: some View {

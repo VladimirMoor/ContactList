@@ -34,6 +34,9 @@ struct DetailView: View {
                 .font(.headline)
                 .fontWeight(.heavy)
             Text(showContact.interest)
+                .onAppear() {
+                    print("\(showContact.coordinate)")
+                }
             
         }
     }
