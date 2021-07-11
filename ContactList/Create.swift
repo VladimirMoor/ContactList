@@ -88,7 +88,6 @@ struct MapToSave: View {
     @State private var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 13.00, longitude: 80.00), span: MKCoordinateSpan(latitudeDelta: 180, longitudeDelta: 180))
     @State private var tracking: MKUserTrackingMode = .follow
     
-    
     var body: some View {
         ZStack {
             

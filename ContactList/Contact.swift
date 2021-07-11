@@ -24,7 +24,6 @@ struct Contact: Codable, Identifiable, Comparable {
         return CLLocationCoordinate2D(latitude: lat, longitude: long)
     }
     
-    
     static func < (lhs: Contact, rhs: Contact) -> Bool {
         return lhs.fullName < rhs.fullName
     }

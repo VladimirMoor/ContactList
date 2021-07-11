@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import MapKit
 
 struct ContentView: View {
     
@@ -14,6 +15,8 @@ struct ContentView: View {
     @State private var showCreate = false
     @State private var inputImage = UIImage(systemName: "person")!
     @State private var cancelPressed = false
+    @State private var showMap = false
+    
     
     var body: some View {
         NavigationView {
@@ -43,6 +46,13 @@ struct ContentView: View {
                         Image(systemName: "plus")
                     })
                 }
+                
+                ToolbarItem(placement: .navigationBarLeading) {
+                    NavigationLink(destination: MapToShow(myList: myList)) {
+                        Text("Map")
+                    }
+                }
+                
             }
             .sheet(isPresented: $showPicker, onDismiss: showCreateView) {
                 ImagePicker(presentPicker: $showPicker, image: $inputImage, cancelPressed: $cancelPressed)
@@ -74,3 +84,32 @@ struct ContentView: View {
         }
     }
 }
+
+struct MapToShow: View {
+    
+    @ObservedObject var myList: ListOfContacts
+    
+    @State private var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 13.00, longitude: 16.00), span: MKCoordinateSpan(latitudeDelta: 180, longitudeDelta: 180))
+
+    var body: some View {
+        Map(coordinateRegion: $region, annotationItems: myList.list ) { pin in
+            
+            MapAnnotation(coordinate: pin.coordinate, anchorPoint: CGPoint(x: 0.5, y: 1)) {
+                NavigationLink(destination: DetailView(showContact: pin)) {
+                VStack {
+                    
+                Text(pin.fullName)
+                    .background(Color.green)
+                    .opacity(0.7)
+                    
+                Image(systemName: "figure.wave")
+                }
+                }
+            }
+            
+        }
+        .navigationTitle("Meeting Map")
+
+    }
+}
+
